@@ -1,20 +1,25 @@
 import React, { MouseEventHandler } from 'react';
 
 interface ButtonProps {
-  onClick?: MouseEventHandler<HTMLButtonElement>;
   children: React.ReactNode;
   className?: string;
   type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
+/**
+ * @function Custom button
+ * @param {ButtonProps} param0
+ * @returns {JSX.Element}
+ */
 const Button: React.FC<ButtonProps> = ({
   onClick,
   children,
   className = '',
   type = 'button',
   disabled = false,
-}) => {
+}): JSX.Element => {
   return (
     <button
       type={type}

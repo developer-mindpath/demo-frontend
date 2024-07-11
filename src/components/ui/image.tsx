@@ -10,6 +10,11 @@ interface ImageProps {
   objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
 }
 
+/**
+ * @function Custom image component
+ * @param {ImageProps} param0
+ * @returns {JSX.Element}
+ */
 const Image: React.FC<ImageProps> = ({
   src,
   alt,
@@ -18,7 +23,7 @@ const Image: React.FC<ImageProps> = ({
   className = '',
   lazy = true,
   objectFit = 'cover',
-}) => {
+}): JSX.Element => {
   return (
     <img
       src={src}

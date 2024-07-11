@@ -10,6 +10,11 @@ interface ProfileDetailsProps {
   techStack: string[];
 }
 
+/**
+ * @function Profile detail
+ * @param {ProfileDetailsProps}
+ * @returns {JSX.Element}
+ */
 const ProfileDetails: React.FC<ProfileDetailsProps> = ({
   name,
   email,
@@ -18,7 +23,7 @@ const ProfileDetails: React.FC<ProfileDetailsProps> = ({
   company,
   experience,
   techStack,
-}) => {
+}): JSX.Element => {
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg text-left w-full">
       <h3 className="text-xl font-bold mb-4">Profile Details</h3>

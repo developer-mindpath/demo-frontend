@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import crypto from 'crypto';
 import { useNavigate } from 'react-router-dom';
+import crypto from 'crypto';
 import { useSnackbar } from 'notistack';
 
 import { ENCRYPTION_KEY } from '@/lib/environment';
@@ -72,6 +72,10 @@ export const useSignInController = (): ISignInController => {
     return encrypted.toString('base64');
   };
 
+  /**
+   * @function To submit the Sign in form
+   * @param {FormEvent} event 
+   */
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const formData = new FormData();

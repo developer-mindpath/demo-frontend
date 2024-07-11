@@ -10,11 +10,16 @@ interface ProfileCardProps {
   className?: string;
 }
 
+/**
+ * @function Profile card
+ * @param {ProfileCardProps}
+ * @returns {JSX.Element}
+ */
 const ProfileCard: React.FC<ProfileCardProps> = ({
   name,
   email,
   className,
-}) => {
+}): JSX.Element => {
   return (
     <div
       className={`bg-white p-8 rounded-lg shadow-lg text-center mb-4 ${className}`}

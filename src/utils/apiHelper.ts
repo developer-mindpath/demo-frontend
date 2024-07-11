@@ -1,4 +1,13 @@
+/**
+ * @class Api helper
+ */
 export class ApiHelper {
+  /**
+   * @function To fetch the API
+   * @param {string} url
+   * @param {RequestInit} options
+   * @returns {Promise<T>}
+   */
   public static async fetchApi<T>(
     url: string,
     options: RequestInit = {},

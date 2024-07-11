@@ -14,6 +14,11 @@ interface InputProps {
   label?: string;
 }
 
+/**
+ * @function Custom textfield
+ * @param {InputProps} param0
+ * @returns {JSX.Element}
+ */
 const TextInputField: React.FC<InputProps> = ({
   type,
   name,
@@ -26,7 +31,7 @@ const TextInputField: React.FC<InputProps> = ({
   endIcon,
   className,
   label,
-}) => {
+}): JSX.Element => {
   return (
     <div className="relative">
       {label && (

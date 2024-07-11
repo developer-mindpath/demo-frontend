@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const CountdownCard: React.FC = () => {
+/**
+ * @function Countdown card
+ * @returns {JSX.Element}
+ */
+const CountdownCard = (): JSX.Element => {
   const [countdown, setCountdown] = useState(5);
   const navigate = useNavigate();
 

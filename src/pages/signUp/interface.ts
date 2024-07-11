@@ -4,3 +4,7 @@ export interface IRequestPayload {
   email: string;
   password: string;
 }
+
+export interface ISignUpResponse {
+  message: string;
+}
