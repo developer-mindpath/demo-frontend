@@ -11,6 +11,7 @@ import 'App.css';
 import SignIn from './pages/signIn/signIn';
 import Profile from './pages/profile/profile';
 import SignUp from './pages/signUp/signUp';
+import NotFound from './pages/404';
 
 const App: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const App: React.FC = () => {
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </Router>
   );
