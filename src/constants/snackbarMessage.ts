@@ -4,3 +4,4 @@ export const SOMETHING_WENT_WRONG = 'Something went wrong';
 export const STATUS_UPDATED = 'Status updated successfully';
 export const USER_DELETED = 'User deleted successfully';
 export const TOKEN_MISSING = 'Token missing from headers';
+export const FILL_FIELDS="Please ensure all required fields are completed with accurate information"

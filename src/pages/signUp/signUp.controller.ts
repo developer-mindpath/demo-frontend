@@ -9,6 +9,8 @@ import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 
 import { AuthService } from '@/services/auth.service';
+import { ERROR_OCCURRED, FILL_FIELDS } from '@/constants/snackbarMessage';
+import { IErrorMessage } from '@/interfaces/common';
 
 interface ISignUpController {
   getters: {
@@ -68,7 +70,8 @@ export const useSignUpController = (): ISignUpController => {
    * @param {ChangeEvent<HTMLInputElement>} event
    */
   const onEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
+    const email = event.target.value.trim();
+    setEmail(email);
   };
 
   /**
@@ -76,26 +79,36 @@ export const useSignUpController = (): ISignUpController => {
    * @param {ChangeEvent<HTMLInputElement>} event
    */
   const onPasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
+    const password = event.target.value.trim();
+    setPassword(password);
   };
 
   const onConfirmPasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setConfirmPassword(event.target.value);
+    const password = event.target.value.trim();
+    setConfirmPassword(password);
     if (password === event.target.value) {
       setErrorMessage('');
     }
   };
 
+  /**
+   * @function For submitting the data
+   * @param {FormEvent} event
+   * @returns
+   */
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
     if (password !== confirmPassword) {
       setErrorMessage('Password must be same');
       return;
     }
-    if (firstName.length && email.length && password.length) {
+    const trimmedFirstName = firstName.trim();
+    const trimmedLastName = lastName.trim();
+
+    if (trimmedFirstName.length && email.length && password.length) {
       const formData = {
-        firstName,
-        lastName,
+        firstName: trimmedFirstName,
+        lastName: trimmedLastName,
         email,
         password,
       };
@@ -107,10 +120,11 @@ export const useSignUpController = (): ISignUpController => {
         });
         setIsSignedUp(true);
       } catch (error) {
-        enqueueSnackbar('An Error Occurred', {
-          variant: 'error',
-        });
+        const errorMessage = (error as IErrorMessage).message || ERROR_OCCURRED;
+        enqueueSnackbar(errorMessage, { variant: 'error' });
       }
+    } else {
+      enqueueSnackbar(FILL_FIELDS, { variant: 'warning' });
     }
   };
 

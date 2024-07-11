@@ -5,7 +5,8 @@ import { useSnackbar } from 'notistack';
 
 import { ENCRYPTION_KEY } from '@/lib/environment';
 import { AuthService } from '@/services/auth.service';
-import { ERROR_OCCURRED, LOGIN_SUCCESSFUL } from '@/constants/snackbarMessage';
+import { ERROR_OCCURRED, FILL_FIELDS, LOGIN_SUCCESSFUL } from '@/constants/snackbarMessage';
+import { IErrorMessage } from '@/interfaces/common';
 
 export interface ISignInResponse {
   message: string;
@@ -50,7 +51,8 @@ export const useSignInController = (): ISignInController => {
    * @param {ChangeEvent<HTMLInputElement>} event
    */
   const onEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
+    const email = event.target.value;
+    setEmail(email);
   };
 
   /**
@@ -74,32 +76,36 @@ export const useSignInController = (): ISignInController => {
 
   /**
    * @function To submit the Sign in form
-   * @param {FormEvent} event 
+   * @param {FormEvent} event
    */
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append('email', email);
     formData.append('password', password);
+    if (password.trim().length) {
+      try {
+        const encryptedEmail = encryptStringWithRsaPublicKey(email.trim());
+        const encryptedPassword = encryptStringWithRsaPublicKey(
+          password.trim(),
+        );
 
-    try {
-      const encryptedEmail = encryptStringWithRsaPublicKey(email);
-      const encryptedPassword = encryptStringWithRsaPublicKey(password);
+        const encryptedFormData = new FormData();
+        encryptedFormData.append('email', encryptedEmail);
+        encryptedFormData.append('password', encryptedPassword);
 
-      const encryptedFormData = new FormData();
-      encryptedFormData.append('email', encryptedEmail);
-      encryptedFormData.append('password', encryptedPassword);
-
-      const res = await AuthService.signIn(encryptedFormData);
-      localStorage.setItem('token', res.token);
-      enqueueSnackbar(LOGIN_SUCCESSFUL, {
-        variant: 'success',
-      });
-      navigate('/profile');
-    } catch (error) {
-      enqueueSnackbar(ERROR_OCCURRED, {
-        variant: 'error',
-      });
+        const res = await AuthService.signIn(encryptedFormData);
+        localStorage.setItem('token', res.token);
+        enqueueSnackbar(LOGIN_SUCCESSFUL, {
+          variant: 'success',
+        });
+        navigate('/profile');
+      } catch (error) {
+        const errorMessage = (error as IErrorMessage).message || ERROR_OCCURRED;
+        enqueueSnackbar(errorMessage, { variant: 'error' });
+      }
+    } else {
+      enqueueSnackbar(FILL_FIELDS, { variant: 'warning' });
     }
   };
 

@@ -112,7 +112,8 @@ export default function SignUp(): JSX.Element {
                   label="Email*"
                   value={email}
                   onChange={(event) => {
-                    setEmail(event.target.value);
+                    const email = event.target.value.trim();
+                    setEmail(email);
                   }}
                   startIcon={
                     <FontAwesomeIcon
