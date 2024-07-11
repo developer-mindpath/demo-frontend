@@ -51,8 +51,7 @@ export const useSignInController = (): ISignInController => {
    * @param {ChangeEvent<HTMLInputElement>} event
    */
   const onEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const email = event.target.value;
-    setEmail(email);
+    setEmail(event.target.value);
   };
 
   /**
