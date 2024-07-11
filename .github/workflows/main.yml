@@ -29,6 +29,8 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
+          VITE_API_URL: ${{secret.BACKEND_API_URL}}
+          VITE_PUBLIC_ENCRYPTION_KEY: ${{secret.PUBLIC_ENCRYPTION_KEY}}
 
       - name: Deploy app build to S3 bucket
         run: aws s3 sync ./dist/ s3://${{ secrets.AWS_S3_BUCKET }} --delete
