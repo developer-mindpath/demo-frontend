@@ -7,6 +7,7 @@ import {
   TOKEN_MISSING,
 } from '@/constants/snackbarMessage';
 import { UserService } from '@/services/user.service';
+import { IErrorMessage } from '@/interfaces/common';
 
 interface IUser {
   username: string;
@@ -73,7 +74,9 @@ export const useProfileController = (): IProfileController => {
       const userData = await UserService.getUserProfile(token);
       setUser({ username: userData.username, email: userData.email });
     } catch (error) {
-      enqueueSnackbar(SOMETHING_WENT_WRONG, { variant: 'error' });
+      const errorMessage =
+        (error as IErrorMessage).message || SOMETHING_WENT_WRONG;
+      enqueueSnackbar(errorMessage, { variant: 'error' });
     }
     setLoading(false);
   };

@@ -27,7 +27,7 @@ const CountdownCard = (): JSX.Element => {
       <div className="bg-white p-8 rounded-lg shadow-lg text-center">
         <h2 className="text-2xl font-bold mb-4">Signup Successful!</h2>
         <p className="text-lg">
-          Redirecting to the login page in {countdown} seconds...
+          Redirecting to the Sign in page in {countdown} seconds...
         </p>
       </div>
     </div>
